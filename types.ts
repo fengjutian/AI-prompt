@@ -11,9 +11,7 @@ export interface ArtPiece {
 }
 
 export enum NavTab {
-  EXPLORE = 'EXPLORE',
-  PROMPT_BUILDER = 'PROMPT_BUILDER',
-  CREATE_ART = 'CREATE_ART'
+  EXPLORE = 'EXPLORE'
 }
 
 export interface PromptResponse {

@@ -28,7 +28,7 @@ const ImageCreator: React.FC<ImageCreatorProps> = ({ initialPrompt = '' }) => {
       const base64Image = await generateAiImage(prompt);
       setGeneratedImage(base64Image);
     } catch (err) {
-      setError("图片生成失败。请确保您的 API 密钥有效并有权访问图像模型。");
+      setError("图片生成失败。请稍后重试。");
     } finally {
       setIsGenerating(false);
     }
@@ -69,7 +69,7 @@ const ImageCreator: React.FC<ImageCreatorProps> = ({ initialPrompt = '' }) => {
               </button>
               
               <div className="text-xs text-gray-500 text-center">
-                由 Gemini 2.5 Flash Image 驱动
+                预览模式 (模拟生成)
               </div>
             </div>
           </div>

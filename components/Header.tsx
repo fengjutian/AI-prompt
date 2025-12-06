@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavTab } from '../types';
-import { Palette, Sparkles, Image as ImageIcon, Menu, Upload } from 'lucide-react';
+import { Palette, Menu, Upload } from 'lucide-react';
 
 interface HeaderProps {
   currentTab: NavTab;
@@ -13,8 +13,6 @@ const Header: React.FC<HeaderProps> = ({ currentTab, onTabChange, onUpload }) =>
 
   const navItems = [
     { id: NavTab.EXPLORE, label: '探索画廊', icon: <Palette className="w-5 h-5" /> },
-    { id: NavTab.PROMPT_BUILDER, label: '提示词生成器', icon: <Sparkles className="w-5 h-5" /> },
-    { id: NavTab.CREATE_ART, label: '艺术创作', icon: <ImageIcon className="w-5 h-5" /> },
   ];
 
   return (

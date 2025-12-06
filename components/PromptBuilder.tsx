@@ -22,7 +22,7 @@ const PromptBuilder: React.FC<PromptBuilderProps> = ({ onUsePrompt }) => {
       const data = await generateDetailedPrompt(topic);
       setResult(data);
     } catch (err) {
-      setError("优化提示词失败。请检查您的网络或 API 密钥。");
+      setError("优化提示词失败，请稍后重试。");
     } finally {
       setIsLoading(false);
     }

@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ArtCard from './components/ArtCard';
-import PromptBuilder from './components/PromptBuilder';
-import ImageCreator from './components/ImageCreator';
 import { MOCK_GALLERY, SUGGESTED_TAGS } from './constants';
 import { NavTab, ArtPiece } from './types';
 import { generateAiImage } from './services/geminiService';
@@ -27,7 +25,6 @@ function App() {
 
   const [selectedPiece, setSelectedPiece] = useState<ArtPiece | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [generatorPrompt, setGeneratorPrompt] = useState('');
 
   // Upload Modal State
   const [isUploadOpen, setIsUploadOpen] = useState(false);
@@ -57,11 +54,6 @@ function App() {
     );
   });
 
-  const handleUsePrompt = (prompt: string) => {
-    setGeneratorPrompt(prompt);
-    setCurrentTab(NavTab.CREATE_ART);
-  };
-
   const handleRandomImage = () => {
     const randomSeed = Math.floor(Math.random() * 10000);
     setNewPiece(prev => ({
@@ -78,7 +70,7 @@ function App() {
       setNewPiece(prev => ({ ...prev, imageUrl: base64 }));
     } catch (error) {
       console.error("Failed to generate preview", error);
-      alert("生成预览失败，请重试或检查 API 密钥。");
+      alert("生成预览失败，请稍后重试。");
     } finally {
       setIsGeneratingPreview(false);
     }
@@ -181,14 +173,6 @@ function App() {
             </div>
           </>
         )}
-
-        {currentTab === NavTab.PROMPT_BUILDER && (
-          <PromptBuilder onUsePrompt={handleUsePrompt} />
-        )}
-
-        {currentTab === NavTab.CREATE_ART && (
-          <ImageCreator initialPrompt={generatorPrompt} />
-        )}
       </main>
 
       {/* Floating Action Button (FAB) */}
@@ -269,19 +253,9 @@ function App() {
                   onClick={() => {
                     navigator.clipboard.writeText(selectedPiece.prompt);
                   }}
-                  className="flex-1 py-3 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-900 font-medium transition-colors"
+                  className="w-full py-3 bg-dark text-white hover:bg-black rounded-xl font-medium transition-colors shadow-lg shadow-indigo-500/20"
                 >
                   复制提示词
-                </button>
-                <button 
-                  onClick={() => {
-                     setGeneratorPrompt(selectedPiece.prompt);
-                     setSelectedPiece(null);
-                     setCurrentTab(NavTab.CREATE_ART);
-                  }}
-                  className="flex-1 py-3 bg-dark text-white hover:bg-black rounded-xl font-medium transition-colors shadow-lg shadow-indigo-500/20"
-                >
-                  去创作同款
                 </button>
               </div>
             </div>
